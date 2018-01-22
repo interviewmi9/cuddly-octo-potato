@@ -37,7 +37,10 @@ const requestProducts = () => ({
   type: PRODUCTS_REQUESTED,
 })
 
-const selectProductById = (state, productId) => getProp(state.products, productId) || {}
+const selectProducts = state => Object.values(getProp(state, 'products') || {})
+
+const selectProductById = (state, productId) =>
+  getProp(state.products, productId) || {}
 
 function* fetchProductsFromApi() {
   try {
@@ -61,5 +64,6 @@ export {
   reducer,
   requestProducts,
   saga,
+  selectProducts,
   selectProductById,
 }

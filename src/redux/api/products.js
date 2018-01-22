@@ -6,7 +6,7 @@ async function fetchProducts() {
 
   const cleanedProducts = data.map(album => ({
     id: album.id,
-    name: album.name,
+    title: album.title,
     colorId: album.userId,
   }))
 

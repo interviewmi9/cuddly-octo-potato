@@ -1,5 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Sofia Pro", "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(#f0f1f5 0%, #e3e8f0 100%);
+  color: #9199ad;
+  font-size: 14px;
 }

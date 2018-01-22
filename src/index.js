@@ -1,8 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
 import './index.css'
 import App from './App'
-import registerServiceWorker from './registerServiceWorker'
+import theme from './components/theme'
+import createStore from './redux/createStore'
+import { requestProducts } from './redux/products'
 
-ReactDOM.render(<App />, document.getElementById('root'))
-registerServiceWorker()
+const store = createStore()
+store.dispatch(requestProducts())
+
+ReactDOM.render(
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </Provider>,
+  document.getElementById('root'),
+)

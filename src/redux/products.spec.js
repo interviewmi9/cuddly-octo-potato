@@ -5,6 +5,7 @@ import {
   fetchProductsFromApi,
   requestProducts,
   saga,
+  selectProducts,
   selectProductById,
 } from './products'
 import productsApi from './api/products'
@@ -73,13 +74,24 @@ describe('products', () => {
       products: sampleProducts,
     })
 
+    describe('selectProducts', () => {
+      it('should return full list of products', () => {
+        expect(
+          selectProducts(store.getState()),
+        ).toEqual([sampleProducts[0], sampleProducts[1], sampleProducts[2]])
+      })
+      it('should return an empty array when products store is empty', () => {
+        expect(selectProducts({})).toEqual([])
+      })
+    })
+
     describe('selectProductById', () => {
       it('should return a correct product by its id', () => {
         expect(
           selectProductById(store.getState(), sampleProducts[0].id),
         ).toEqual(sampleProducts[0])
       })
-      it('should return empty object when id is not found', () => {
+      it('should return an empty object when id is not found', () => {
         expect(selectProductById(store.getState(), 'non-existing-id')).toEqual(
           {},
         )
