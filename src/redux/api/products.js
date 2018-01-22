@@ -8,7 +8,7 @@ async function fetchProducts() {
     id: album.id,
     title: album.title.split(' ', 3).join(' '),
     description: album.title.split(' ').slice(3).join(' '),
-    colorId: album.userId,
+    colorId: Math.floor(Math.random() * 4) + 1,
   }))
 
   return cleanedProducts
