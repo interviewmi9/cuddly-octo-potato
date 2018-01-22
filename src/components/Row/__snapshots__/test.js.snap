@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Row component renders correctly 1`] = `
+.c0 {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 100%;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c0 > * {
+  margin: 0 10px;
+}
+
+.c0 > *:first-child {
+  margin-left: 0;
+}
+
+.c0 > *:last-child {
+  margin-right: 0;
+}
+
+<div
+  className="c0"
+  spacing={10}
+>
+  Hello
+</div>
+`;

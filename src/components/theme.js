@@ -6,6 +6,9 @@ const palette = {
   base: colors.base,
   primary: colors.foreground,
   secondary: colors.base,
+  alert: '#cd3939',
+  border: '#dadde4',
+  activeBg: '#f4f7fc',
 }
 const fontSizes = {
   heading: '30px',

@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { selectProducts } from './redux/products'
 import Card from './components/Card'
-
+import Button from './components/Button'
+import Row from './components/Row'
 
 const Header = styled.div`
   background: #000;
@@ -19,7 +20,12 @@ const Wrapper = styled.div`
 `
 
 const App = ({ productsList }) => [
-  <Header>Products</Header>,
+  <Header>
+    <Row justify="space-between" align="center">
+      Products
+      <Button>Add new</Button>
+    </Row>
+  </Header>,
 
   <Wrapper>
     {productsList.map(item => <Card item={item} />)}
