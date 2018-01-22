@@ -6,32 +6,10 @@ const palette = {
   base: colors.base,
   primary: colors.foreground,
   secondary: colors.base,
-  buttons: {
-    primary: {
-      backgroundColour: colors.blue,
-      color: colors.white,
-      hover: '#3c92ef',
-      active: '#2e59a4',
-      border: `solid 1px ${colors.blue}`,
-    },
-    secondary: {
-      backgroundColour: colors.white,
-      color: colors.steelBlue,
-      hover: colors.shadeGray,
-      active: colors.darkBlue,
-      border: `solid 1px ${colors.shadeGray}`,
-    },
-  },
-  black: colors.steelBlue,
-  info: '#5ab0ed',
-  alert: colors.red,
-  warning: colors.orange,
-  success: colors.green,
-  border: colors.shadeGray,
-  muted: colors.grayDefaultText,
 }
 const fontSizes = {
   heading: '30px',
+  subHeader: '16px',
   body: '14px',
   label: '12px',
 }
@@ -65,12 +43,19 @@ const transition = {
 const boxShadows = {
   main: '-1px -1px 4px 0 rgba(192, 206, 225, 0.3)',
 }
-
+const button = {
+  backgroundColor: '#376fc6',
+  color: colors.foreground,
+  hover: '#3c92ef',
+  active: '#2e59a4',
+  border: 'solid 1px #376fc6',
+}
 export default {
   palette,
   whitespace,
   type,
   borders,
+  button,
   fontSizes,
   fontFamilies,
   colors,

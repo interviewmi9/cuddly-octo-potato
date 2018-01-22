@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Product Card component renders correctly 1`] = `
+.c2 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .c0 {
   width: 20%;
 }
@@ -10,15 +20,16 @@ exports[`Product Card component renders correctly 1`] = `
   border-left: 8px solid transparent;
   padding: 20px;
   color: #606b87;
-  margin: 20px;
+  margin: 10px;
   -webkit-transition: background 0.4s ease;
   transition: background 0.4s ease;
   box-shadow: 0px 0px 3px #d4d5d8;
   background-color: #fff;
 }
 
-.c1:first-letter {
-  text-transform: capitalize;
+.c3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 <div
@@ -26,9 +37,18 @@ exports[`Product Card component renders correctly 1`] = `
 >
   <div
     className="c1"
-    title="consequatur autem doloribus natus consectetur"
+    title="consequatur autem doloribus"
   >
-    consequatur autem doloribus natus consectetur
+    <div
+      className="c2"
+    >
+      consequatur autem doloribus
+    </div>
+    <div
+      className="c3"
+    >
+       natus consectetur
+    </div>
   </div>
 </div>
 `;
