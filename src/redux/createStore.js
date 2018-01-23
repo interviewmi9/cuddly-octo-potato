@@ -6,6 +6,7 @@ import {
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 import createSagaMiddleware from 'redux-saga'
 import { saga as productsSaga, reducer as products } from './products'
+import { saga as toastSaga, reducer as toast } from './toast'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -22,6 +23,7 @@ function createBasicStore(
   const store = createReduxStore(
     combineReducers({
       products,
+      toast,
       ...extraReducers,
     }),
     initialState,
@@ -34,7 +36,7 @@ function createBasicStore(
 }
 
 function applyReduxSagas() {
-  const sagas = [productsSaga]
+  const sagas = [productsSaga, toastSaga]
 
   sagas.forEach(saga => sagaMiddleware.run(saga))
 }

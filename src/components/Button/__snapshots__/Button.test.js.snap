@@ -6,9 +6,9 @@ exports[`button component renders correctly 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #376fc6;
+  background-color: #1b7eac;
   border-radius: 4px;
-  border: solid 1px #376fc6;
+  border: solid 1px #156489;
   color: white;
   cursor: pointer;
   display: -webkit-inline-box;
@@ -28,7 +28,7 @@ exports[`button component renders correctly 1`] = `
 }
 
 .c0:hover {
-  background-color: #3c92ef;
+  background-color: #27a3dd;
 }
 
 <div

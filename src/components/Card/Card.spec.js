@@ -10,7 +10,7 @@ describe('Product Card component', () => {
   }
 
   it('renders correctly', () => {
-    const rendered = render(<Card item={item} />)
+    const rendered = render(<Card item={item} remove={() => {}} />)
     expect(rendered).toMatchSnapshot()
   })
 })

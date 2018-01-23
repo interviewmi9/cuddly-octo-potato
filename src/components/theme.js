@@ -47,11 +47,11 @@ const boxShadows = {
   main: '-1px -1px 4px 0 rgba(192, 206, 225, 0.3)',
 }
 const button = {
-  backgroundColor: '#376fc6',
+  backgroundColor: '#1b7eac',
   color: colors.foreground,
-  hover: '#3c92ef',
-  active: '#2e59a4',
-  border: 'solid 1px #376fc6',
+  hover: '#27a3dd',
+  active: '#5cbae5',
+  border: 'solid 1px #156489',
 }
 export default {
   palette,

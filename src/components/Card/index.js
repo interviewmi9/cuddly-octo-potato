@@ -37,13 +37,13 @@ const SmallButton = styled(Button)`
 
 const confirmationButton = <SmallButton>Really delete?</SmallButton>
 
-const Card = ({ item, deleteItem }) => {
+const Card = ({ item, remove }) => {
   return (
     <Spacer>
       <Wrapper title={item.title} colorId={item.colorId}>
-        <Subheader>{item.title}</Subheader>
+        <Subheader>{item.title} {item.id}</Subheader>
         <Text>{item.description}</Text>
-        <Confirm by={confirmationButton}><SmallButton onClick={deleteItem}>Delete</SmallButton></Confirm>
+        <Confirm by={confirmationButton}><SmallButton onClick={remove}>Delete</SmallButton></Confirm>
       </Wrapper>
     </Spacer>
   )
@@ -56,7 +56,7 @@ Card.propTypes = {
     description: PropTypes.string,
     colorId: PropTypes.number.isRequired,
   }).isRequired,
-  deleteItem: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired,
 }
 
 export default Card

@@ -3,10 +3,12 @@ import createStore from './createStore'
 import {
   actionTypes,
   fetchProductsFromApi,
+  requestProductRemoval,
   requestProducts,
   saga,
   selectProducts,
   selectProductById,
+  removeProduct,
 } from './products'
 import productsApi from './api/products'
 
@@ -38,6 +40,12 @@ describe('products', () => {
         )
       })
 
+      it('should wait for product removal request', () => {
+        expect(gen.next().value).toEqual(
+          takeEvery(actionTypes.PRODUCT_REMOVAL_REQUESTED, requestProductRemoval),
+        )
+      })
+
       it("shouldn't do anything else", () => {
         expect(gen.next().done).toBeTruthy()
       })
@@ -56,6 +64,33 @@ describe('products', () => {
           put({
             type: actionTypes.PRODUCTS_LOADED,
             products: sampleProducts,
+          }),
+        )
+      })
+
+      it("shouldn't do anything else", () => {
+        expect(gen.next().done).toBeTruthy()
+      })
+    })
+
+    describe('when product is deleted', () => {
+      const deleteProductAction = removeProduct(1)
+      const gen = requestProductRemoval(deleteProductAction)
+
+      it('should dispatch REMOVE_PRODUCT action', () => {
+        expect(gen.next().value).toEqual(
+          put({
+            type: actionTypes.REMOVE_PRODUCT,
+            id: 1,
+          }),
+        )
+      })
+
+      it('should dispatch PRODUCT_REMOVAL_SUCCESSFUL action', () => {
+        expect(gen.next().value).toEqual(
+          put({
+            type: actionTypes.PRODUCT_REMOVAL_SUCCESSFUL,
+            productId: 1,
           }),
         )
       })
@@ -107,6 +142,15 @@ describe('products', () => {
         })
       })
     })
+
+    describe('removeProduct', () => {
+      it('should create an action to request remove a product', () => {
+        expect(removeProduct(1)).toEqual({
+          type: actionTypes.PRODUCT_REMOVAL_REQUESTED,
+          productId: 1,
+        })
+      })
+    })
   })
 
   describe('reducer', () => {
@@ -124,6 +168,23 @@ describe('products', () => {
       expect(store.getState().products).toEqual({
         1: sampleProducts[0],
         2: sampleProducts[1],
+        3: sampleProducts[2],
+      })
+    })
+
+    it('should handle REMOVE_PRODUCT action with product id provided', () => {
+      store.dispatch({
+        type: actionTypes.PRODUCTS_LOADED,
+        products: sampleProducts,
+      })
+
+      store.dispatch({
+        type: actionTypes.REMOVE_PRODUCT,
+        id: 2,
+      })
+
+      expect(store.getState().products).toEqual({
+        1: sampleProducts[0],
         3: sampleProducts[2],
       })
     })
