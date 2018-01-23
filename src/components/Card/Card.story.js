@@ -12,5 +12,5 @@ const item = {
 storiesOf('Card', module)
   .addDecorator((story, context) => withInfo()(story)(context))
   .add('Default view', () => {
-    return <Card item={item} />
+    return <Card item={item} remove={() => {}} />
   })
