@@ -6,7 +6,7 @@ describe('Product Card component', () => {
     id: 12,
     title: 'consequatur autem doloribus',
     description: ' natus consectetur',
-    colorId: 2,
+    colorIds: [1, 2, 3],
   }
 
   it('renders correctly', () => {

@@ -6,8 +6,8 @@ import Card from './'
 const item = {
   id: 12,
   title: 'consequatur autem doloribus',
-  description: ' natus consectetur',
-  colorId: 2,
+  description: 'natus consectetur',
+  colorIds: [2, 3],
 }
 storiesOf('Card', module)
   .addDecorator((story, context) => withInfo()(story)(context))

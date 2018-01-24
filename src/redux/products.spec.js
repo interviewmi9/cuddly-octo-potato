@@ -15,17 +15,17 @@ import productsApi from './api/products'
 describe('products', () => {
   const sampleProducts = [
     {
-      colorId: 1,
+      colorIds: [1],
       id: 1,
       title: 'quidem molestiae enim',
     },
     {
-      colorId: 2,
+      colorIds: [2, 3],
       id: 2,
       title: 'sunt qui excepturi placeat culpa',
     },
     {
-      colorId: 1,
+      colorIds: [1, 3],
       id: 3,
       title: 'omnis laborum odio',
     },

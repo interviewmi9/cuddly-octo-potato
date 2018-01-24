@@ -25,6 +25,7 @@
     "import/prefer-default-export": 0,
     "max-len": [2, 140, 2],
     "new-cap": [2, {"newIsCap": true, "capIsNew": false, "properties": false}],
+    "no-confusing-arrow": 0,
     "no-console": 0,
     "no-param-reassign": ["error", { "props": false }],
     "no-restricted-syntax": 0,

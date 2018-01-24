@@ -4,21 +4,29 @@ import styled from 'styled-components'
 import Subheader from '../Subheader'
 import Confirm from '../Confirm'
 import Button from '../Button'
-import { colors } from '../../fixtures'
+import ColorBar from '../ColorBar'
 
 const Spacer = styled.div`
   width: 20%;
 `
 const Wrapper = styled.div`
-  cursor: pointer;
-  border-left: 8px solid ${({ colorId }) => colors[colorId].value};
-  padding: 20px;
   color: #606b87;
   margin: 10px;
   transition: background 0.4s ease;
   box-shadow: 0px 0px 3px #d4d5d8;
   background-color: #fff;
+  display: flex;
+  flex-direction: row;
 `
+const Bar = styled.div`
+  width: 8px;
+`
+
+const Content = styled.div`
+  cursor: pointer;
+  padding: 20px;
+`
+
 const Text = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
@@ -30,7 +38,7 @@ const SmallButton = styled(Button)`
   color: ${({ theme }) => theme.palette.base};
   font-size: 12px;
   border-color: ${({ theme }) => theme.palette.border};
-  &:hover{
+  &:hover {
     background: none;
   }
 `
@@ -40,10 +48,19 @@ const confirmationButton = <SmallButton>Really delete?</SmallButton>
 const Card = ({ item, remove }) => {
   return (
     <Spacer>
-      <Wrapper title={item.title} colorId={item.colorId}>
-        <Subheader>{item.title} {item.id}</Subheader>
-        <Text>{item.description}</Text>
-        <Confirm by={confirmationButton}><SmallButton onClick={remove}>Delete</SmallButton></Confirm>
+      <Wrapper title={item.title}>
+        <Bar>
+          <ColorBar colorIds={item.colorIds} />
+        </Bar>
+        <Content>
+          <Subheader>
+            {item.title} {item.id}
+          </Subheader>
+          <Text>{item.description}</Text>
+          <Confirm by={confirmationButton}>
+            <SmallButton onClick={remove}>Delete</SmallButton>
+          </Confirm>
+        </Content>
       </Wrapper>
     </Spacer>
   )
@@ -54,7 +71,7 @@ Card.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
-    colorId: PropTypes.number.isRequired,
+    colorIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   }).isRequired,
   remove: PropTypes.func.isRequired,
 }

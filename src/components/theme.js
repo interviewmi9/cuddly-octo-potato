@@ -9,6 +9,7 @@ const palette = {
   alert: '#cd3939',
   border: '#dadde4',
   activeBg: '#f4f7fc',
+  transparentBackground: 'rgba(74, 88, 121, 0.3)',
 }
 const fontSizes = {
   heading: '30px',
@@ -53,15 +54,19 @@ const button = {
   active: '#5cbae5',
   border: 'solid 1px #156489',
 }
+const sidebar = {
+  default: '45%',
+}
 export default {
-  palette,
-  whitespace,
-  type,
   borders,
-  button,
-  fontSizes,
-  fontFamilies,
-  colors,
-  transition,
   boxShadows,
+  button,
+  colors,
+  fontFamilies,
+  fontSizes,
+  palette,
+  sidebar,
+  transition,
+  type,
+  whitespace,
 }

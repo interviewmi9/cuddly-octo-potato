@@ -14,7 +14,6 @@ const Header = styled.div`
   padding: 20px;
   font-size: 18px;
 `
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -46,13 +45,12 @@ const App = ({ productsList, remove }) => (
   </div>
 )
 
-
 App.propTypes = {
   productsList: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
-    colorId: PropTypes.number.isRequired,
+    colorIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   })).isRequired,
   remove: PropTypes.func.isRequired,
 }

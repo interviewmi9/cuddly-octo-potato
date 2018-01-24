@@ -7,8 +7,10 @@
     "eslint": "^4.16.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jest": "^21.7.0",
+    "no-scroll": "^2.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-portal": "^4.1.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
@@ -67,6 +69,7 @@
       "node_modules",
       "src"
     ],
+    "coveragePathIgnorePatterns": ["./src/components/Sidebar", "./src/redux/api"],
     "coverageThreshold": {
       "global": {
         "statements": 80,
