@@ -2,12 +2,16 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import getProp from 'lodash/get'
 import omit from 'lodash/omit'
 import productsApi from './api/products'
+import { closeProductSidebar } from './ui'
 
 const PRODUCTS_REQUESTED = 'PRODUCTS_REQUESTED'
 const PRODUCTS_LOADED = 'PRODUCTS_LOADED'
 const PRODUCT_REMOVAL_REQUESTED = 'PRODUCT_REMOVAL_REQUESTED'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 const PRODUCT_REMOVAL_SUCCESSFUL = 'PRODUCT_REMOVAL_SUCCESSFUL'
+const PRODUCT_SAVE_REQUESTED = 'PRODUCT_SAVE_REQUESTED'
+const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
+const PRODUCT_SAVE_SUCCESSFUL = 'PRODUCT_SAVE_SUCCESSFUL'
 
 const actionTypes = {
   PRODUCTS_REQUESTED,
@@ -15,6 +19,9 @@ const actionTypes = {
   PRODUCT_REMOVAL_REQUESTED,
   REMOVE_PRODUCT,
   PRODUCT_REMOVAL_SUCCESSFUL,
+  PRODUCT_SAVE_REQUESTED,
+  UPDATE_PRODUCT,
+  PRODUCT_SAVE_SUCCESSFUL,
 }
 
 const keyBy = (arr, prop) =>
@@ -39,6 +46,13 @@ const reducer = (state = {}, action) => {
       return omit(state, action.id)
     }
 
+    case UPDATE_PRODUCT: {
+      return {
+        ...state,
+        [action.id]: action.payload,
+      }
+    }
+
     default:
       return state
   }
@@ -56,6 +70,12 @@ const selectProductById = (state, productId) =>
 const removeProduct = productId => ({
   type: actionTypes.PRODUCT_REMOVAL_REQUESTED,
   productId,
+})
+
+const saveProduct = (productId, payload) => ({
+  type: actionTypes.PRODUCT_SAVE_REQUESTED,
+  productId,
+  payload,
 })
 
 function* fetchProductsFromApi() {
@@ -85,6 +105,23 @@ function* requestProductRemoval(action) {
   }
 }
 
+function* requestProductSave(action) {
+  try {
+    yield put(closeProductSidebar())
+    yield put({
+      type: actionTypes.UPDATE_PRODUCT,
+      id: action.productId,
+      payload: action.payload,
+    })
+    yield put({
+      type: actionTypes.PRODUCT_SAVE_SUCCESSFUL,
+      productId: action.productId,
+    })
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 function* saga() {
   yield takeEvery(PRODUCTS_REQUESTED, fetchProductsFromApi)
 
@@ -92,16 +129,23 @@ function* saga() {
     actionTypes.PRODUCT_REMOVAL_REQUESTED,
     requestProductRemoval,
   )
+
+  yield takeEvery(
+    actionTypes.PRODUCT_SAVE_REQUESTED,
+    requestProductSave,
+  )
 }
 
 export {
   actionTypes,
   fetchProductsFromApi,
   requestProductRemoval,
+  requestProductSave,
   reducer,
   requestProducts,
   saga,
   selectProducts,
   selectProductById,
   removeProduct,
+  saveProduct,
 }

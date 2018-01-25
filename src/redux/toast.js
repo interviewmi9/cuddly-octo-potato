@@ -39,8 +39,13 @@ function* notifyProductRemoved() {
   yield put(show('Product has been removed'))
 }
 
+function* notifyProductUpdated() {
+  yield put(show('Product has been updated'))
+}
+
 function* saga() {
   yield takeEvery(productsActionTypes.PRODUCT_REMOVAL_SUCCESSFUL, notifyProductRemoved)
+  yield takeEvery(productsActionTypes.PRODUCT_SAVE_SUCCESSFUL, notifyProductUpdated)
 }
 
 export {

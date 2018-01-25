@@ -36,15 +36,15 @@ const schema = {
   colorIds: yup.array().min(1),
 }
 
+const fields = ['title', 'description', 'colorIds']
+
 class ProductSidebar extends React.Component {
   componentWillReceiveProps(props) {
-    ;['title', 'description', 'colorIds'].map(name =>
-      this.fieldUpdated(name, props.product[name]),
-    )
+    fields.map(name => this.fieldUpdated(name, props.product[name]))
   }
 
   isFormValid = () => {
-    return ['title', 'description', 'colorIds']
+    return fields
       .map(field => getProp(this.state, `${field}.isValid`))
       .every(item => !!item)
   }
@@ -60,6 +60,17 @@ class ProductSidebar extends React.Component {
     })
   }
 
+  submit = () => {
+    if (!this.isFormValid()) return null
+
+    return this.props.save(
+      fields.reduce((result, field) => {
+        result[field] = this.state[field].value
+        return result
+      }, {}),
+    )
+  }
+
   render() {
     const { isVisible, close } = this.props
 
@@ -68,7 +79,7 @@ class ProductSidebar extends React.Component {
         isOpen={isVisible}
         onBeforeClose={() => close()}
         content={() => [
-          <Body>
+          <Body key="body">
             <Header>Edit product</Header>
             <Wrapper>
               <TextInput
@@ -85,15 +96,22 @@ class ProductSidebar extends React.Component {
                 onChange={e => this.fieldUpdated('description', e.target.value)}
               />
               Product colors
-              <ColorSelector values={this.state.colorIds.value} isValid={this.state.colorIds.isValid} onChange={values => this.fieldUpdated('colorIds', values)} />
+              <ColorSelector
+                values={this.state.colorIds.value}
+                hasError={!this.state.colorIds.isValid}
+                onChange={values => this.fieldUpdated('colorIds', values)}
+              />
             </Wrapper>
           </Body>,
-          <Footer>
+          <Footer key="footer">
             <Row>
               <Button onClick={close}>Cancel</Button>
             </Row>
             <Row justify="flex-end">
-              <Button type={this.isFormValid() ? 'primary' : 'disabled'}>
+              <Button
+                type={this.isFormValid() ? 'primary' : 'disabled'}
+                onClick={this.submit}
+              >
                 Save
               </Button>
             </Row>
@@ -112,6 +130,7 @@ ProductSidebar.propTypes = {
     colorIds: PropTypes.arrayOf(PropTypes.number),
   }).isRequired,
   close: PropTypes.func.isRequired,
+  save: PropTypes.func.isRequired,
   isVisible: PropTypes.bool.isRequired,
 }
 

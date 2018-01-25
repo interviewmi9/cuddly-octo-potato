@@ -6,6 +6,7 @@ import { colors } from '../../fixtures'
 const Label = styled.label`
   display: block;
   padding-top: ${({ theme }) => theme.whitespace.xs};
+  user-select: none;
 `
 
 const Warning = styled.div`
@@ -13,7 +14,7 @@ const Warning = styled.div`
   padding-top: ${({ theme }) => theme.whitespace.xs};
 `
 
-const ColorSelector = ({ values, isValid, onChange }) => {
+const ColorSelector = ({ values, hasError, onChange }) => {
   const selection = values.reduce((acc, val) => {
     acc[val] = true
     return acc
@@ -43,13 +44,13 @@ const ColorSelector = ({ values, isValid, onChange }) => {
           {colors[id].title}
         </Label>
       ))}
-      {!isValid && <Warning>Please select at least one color</Warning>}
+      {hasError && <Warning>Please select at least one color</Warning>}
     </div>
   )
 }
 
 ColorSelector.propTypes = {
-  isValid: PropTypes.bool.isRequired,
+  hasError: PropTypes.bool.isRequired,
   values: PropTypes.arrayOf(PropTypes.number),
   onChange: PropTypes.func.isRequired,
 }

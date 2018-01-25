@@ -4,6 +4,7 @@ import {
   actionTypes,
   fetchProductsFromApi,
   requestProductRemoval,
+  requestProductSave,
   requestProducts,
   saga,
   selectProducts,
@@ -43,6 +44,12 @@ describe('products', () => {
       it('should wait for product removal request', () => {
         expect(gen.next().value).toEqual(
           takeEvery(actionTypes.PRODUCT_REMOVAL_REQUESTED, requestProductRemoval),
+        )
+      })
+
+      it('should wait for product save request', () => {
+        expect(gen.next().value).toEqual(
+          takeEvery(actionTypes.PRODUCT_SAVE_REQUESTED, requestProductSave),
         )
       })
 

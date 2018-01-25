@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { selectSidebarProductId, closeProductSidebar } from '../../redux/ui'
-import { selectProductById } from '../../redux/products'
+import { selectProductById, saveProduct } from '../../redux/products'
 import ProductSidebar from './Sidebar'
 
 const EditProduct = ({ productId, product, dispatch }) => {
@@ -13,6 +13,7 @@ const EditProduct = ({ productId, product, dispatch }) => {
       product={product}
       isVisible={showSidebar}
       close={() => dispatch(closeProductSidebar())}
+      save={(payload) => dispatch(saveProduct(productId, payload))}
     />
   )
 }
