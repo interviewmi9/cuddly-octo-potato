@@ -7,9 +7,11 @@ import Sidebar from '../Sidebar'
 import TextInput from '../TextInput'
 import Row from '../Row'
 import Button from '../Button'
+import ColorSelector from './ColorSelector'
 
 const Body = styled.div`
   flex-grow: 1;
+  color: ${({ theme }) => theme.palette.base};
 `
 const Footer = styled.div`
   display: flex;
@@ -20,7 +22,6 @@ const Wrapper = styled.div`
   flex-direction: column;
 `
 const Header = styled.div`
-  color: ${({ theme }) => theme.palette.base};
   margin-bottom: ${({ theme }) => theme.whitespace.base};
   font-size: 18px;
 `
@@ -37,11 +38,13 @@ const schema = {
 
 class ProductSidebar extends React.Component {
   componentWillReceiveProps(props) {
-    ['title', 'description'].map(name => this.fieldUpdated(name, props.product[name]))
+    ;['title', 'description', 'colorIds'].map(name =>
+      this.fieldUpdated(name, props.product[name]),
+    )
   }
 
   isFormValid = () => {
-    return ['title', 'description']
+    return ['title', 'description', 'colorIds']
       .map(field => getProp(this.state, `${field}.isValid`))
       .every(item => !!item)
   }
@@ -71,7 +74,7 @@ class ProductSidebar extends React.Component {
               <TextInput
                 label="Product title"
                 required
-                error="4-8 characters, alphanumeric characters only"
+                error="4-8 characters, alphanumeric only"
                 hasError={!this.state.title.isValid}
                 value={this.state.title.value}
                 onChange={e => this.fieldUpdated('title', e.target.value)}
@@ -81,6 +84,8 @@ class ProductSidebar extends React.Component {
                 value={this.state.description.value}
                 onChange={e => this.fieldUpdated('description', e.target.value)}
               />
+              Product colors
+              <ColorSelector values={this.state.colorIds.value} isValid={this.state.colorIds.isValid} onChange={values => this.fieldUpdated('colorIds', values)} />
             </Wrapper>
           </Body>,
           <Footer>

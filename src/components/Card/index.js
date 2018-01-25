@@ -55,7 +55,7 @@ const Card = ({ item, edit, remove }) => {
         <Content>
           <Clickable onClick={edit}>
             <Subheader>
-              {item.title} {item.id}
+              {item.title}
             </Subheader>
             <Text>{item.description}</Text>
           </Clickable>
