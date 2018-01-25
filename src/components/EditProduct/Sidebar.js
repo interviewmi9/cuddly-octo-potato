@@ -39,6 +39,10 @@ const schema = {
 const fields = ['title', 'description', 'colorIds']
 
 class ProductSidebar extends React.Component {
+  state = {
+    title: { isValid: false },
+  }
+
   componentWillReceiveProps(props) {
     fields.map(name => this.fieldUpdated(name, props.product[name]))
   }
@@ -72,7 +76,7 @@ class ProductSidebar extends React.Component {
   }
 
   render() {
-    const { isVisible, close } = this.props
+    const { isVisible, close, isNew } = this.props
 
     return (
       <Sidebar
@@ -80,7 +84,8 @@ class ProductSidebar extends React.Component {
         onBeforeClose={() => close()}
         content={() => [
           <Body key="body">
-            <Header>Edit product</Header>
+            {!isNew && <Header>Edit product</Header>}
+            {isNew && <Header>Add new product</Header>}
             <Wrapper>
               <TextInput
                 label="Product title"
@@ -127,11 +132,12 @@ ProductSidebar.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
     description: PropTypes.string,
-    colorIds: PropTypes.arrayOf(PropTypes.number),
+    colorIds: PropTypes.array,
   }).isRequired,
   close: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
   isVisible: PropTypes.bool.isRequired,
+  isNew: PropTypes.bool.isRequired,
 }
 
 export default ProductSidebar

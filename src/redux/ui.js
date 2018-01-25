@@ -2,6 +2,7 @@ import getProp from 'lodash/get'
 
 const actionTypes = {
   OPEN_PRODUCT_SIDEBAR: 'OPEN_PRODUCT_SIDEBAR',
+  OPEN_NEW_PRODUCT_SIDEBAR: 'OPEN_NEW_PRODUCT_SIDEBAR',
   CLOSE_PRODUCT_SIDEBAR: 'CLOSE_PRODUCT_SIDEBAR',
 }
 
@@ -12,6 +13,14 @@ const reducer = (state = {}, action) => {
         ...state,
         productSidebar: {
           productId: action.productId,
+        },
+      }
+    }
+    case actionTypes.OPEN_NEW_PRODUCT_SIDEBAR: {
+      return {
+        ...state,
+        productSidebar: {
+          isNew: true,
         },
       }
     }
@@ -27,7 +36,7 @@ const reducer = (state = {}, action) => {
 }
 
 const openProductSidebar = (productId) => ({
-  type: actionTypes.OPEN_PRODUCT_SIDEBAR,
+  type: productId ? actionTypes.OPEN_PRODUCT_SIDEBAR : actionTypes.OPEN_NEW_PRODUCT_SIDEBAR,
   productId,
 })
 
@@ -39,10 +48,15 @@ const selectSidebarProductId = (state) => {
   return getProp(state, 'ui.productSidebar.productId')
 }
 
+const selectSidebarIsNewProduct = (state) => {
+  return getProp(state, 'ui.productSidebar.isNew')
+}
+
 export {
   reducer,
   actionTypes,
   openProductSidebar,
   closeProductSidebar,
   selectSidebarProductId,
+  selectSidebarIsNewProduct,
 }

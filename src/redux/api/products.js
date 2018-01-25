@@ -8,15 +8,15 @@ async function fetchProducts() {
 
   const cleanedProducts = data.map(album => ({
     id: album.id,
-    title: album.title.split(' ', 3).join(' '),
+    title: album.title.split(' ', 2).join('').substring(0, 6),
     description: album.title
       .split(' ')
-      .slice(3)
+      .slice(2)
       .join(' '),
     colorIds: [...new Array(random(4))]
       .map(() => random(4))
       .filter((val, index, self) => self.indexOf(val) === index),
-  }))
+  })).slice(0, 20)
   return cleanedProducts
 }
 

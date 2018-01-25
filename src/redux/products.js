@@ -1,5 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import getProp from 'lodash/get'
+import uuid from 'uuid'
 import omit from 'lodash/omit'
 import productsApi from './api/products'
 import { closeProductSidebar } from './ui'
@@ -49,7 +50,10 @@ const reducer = (state = {}, action) => {
     case UPDATE_PRODUCT: {
       return {
         ...state,
-        [action.id]: action.payload,
+        [action.id]: {
+          ...action.payload,
+          id: action.id,
+        },
       }
     }
 
@@ -106,6 +110,7 @@ function* requestProductRemoval(action) {
 }
 
 function* requestProductSave(action) {
+  if (!action.productId) action.productId = uuid()
   try {
     yield put(closeProductSidebar())
     yield put({
@@ -125,15 +130,9 @@ function* requestProductSave(action) {
 function* saga() {
   yield takeEvery(PRODUCTS_REQUESTED, fetchProductsFromApi)
 
-  yield takeEvery(
-    actionTypes.PRODUCT_REMOVAL_REQUESTED,
-    requestProductRemoval,
-  )
+  yield takeEvery(actionTypes.PRODUCT_REMOVAL_REQUESTED, requestProductRemoval)
 
-  yield takeEvery(
-    actionTypes.PRODUCT_SAVE_REQUESTED,
-    requestProductSave,
-  )
+  yield takeEvery(actionTypes.PRODUCT_SAVE_REQUESTED, requestProductSave)
 }
 
 export {

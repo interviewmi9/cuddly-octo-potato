@@ -1,19 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { selectSidebarProductId, closeProductSidebar } from '../../redux/ui'
+import {
+  selectSidebarProductId,
+  selectSidebarIsNewProduct,
+  closeProductSidebar,
+} from '../../redux/ui'
 import { selectProductById, saveProduct } from '../../redux/products'
 import ProductSidebar from './Sidebar'
 
-const EditProduct = ({ productId, product, dispatch }) => {
-  const showSidebar = !!productId
-
+const EditProduct = ({ productId, product, dispatch, isNew }) => {
+  const showSidebar = !!productId || isNew
   return (
     <ProductSidebar
       product={product}
+      isNew={isNew}
       isVisible={showSidebar}
       close={() => dispatch(closeProductSidebar())}
-      save={(payload) => dispatch(saveProduct(productId, payload))}
+      save={payload => dispatch(saveProduct(productId, payload))}
     />
   )
 }
@@ -24,21 +28,23 @@ EditProduct.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
     description: PropTypes.string,
-    colorIds: PropTypes.arrayOf(PropTypes.number),
+    colorIds: PropTypes.array,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
+  isNew: PropTypes.bool,
 }
 
 EditProduct.defaultProps = {
   productId: null,
+  isNew: false,
 }
 
-export default connect((state) => {
-  let product = {}
+export default connect(state => {
+  let product = { title: '', description: '', colorIds: [] }
   const productId = selectSidebarProductId(state)
   if (productId) {
     product = selectProductById(state, productId)
   }
-  return { productId, product }
+  const isNew = selectSidebarIsNewProduct(state)
+  return { productId, product, isNew }
 })(EditProduct)
-

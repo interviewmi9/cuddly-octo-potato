@@ -30,6 +30,7 @@
     "no-param-reassign": ["error", { "props": false }],
     "no-restricted-syntax": 0,
     "no-use-before-define": [2, {"functions": false, "classes": false}],
+    "object-curly-newline": ["error", { "consistent": true }],
     "padded-blocks": 0,
     "react/jsx-filename-extension": 0,
     "semi": [2, "never"]

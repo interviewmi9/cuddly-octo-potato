@@ -51,7 +51,9 @@ const ColorSelector = ({ values, hasError, onChange }) => {
 
 ColorSelector.propTypes = {
   hasError: PropTypes.bool.isRequired,
-  values: PropTypes.arrayOf(PropTypes.number),
+  values: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ),
   onChange: PropTypes.func.isRequired,
 }
 

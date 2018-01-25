@@ -24,7 +24,9 @@ const ColorBar = ({ colorIds }) => {
 }
 
 ColorBar.propTypes = {
-  colorIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  colorIds: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ).isRequired,
 }
 
 export default ColorBar

@@ -40,7 +40,7 @@ function* notifyProductRemoved() {
 }
 
 function* notifyProductUpdated() {
-  yield put(show('Product has been updated'))
+  yield put(show('Products have been updated'))
 }
 
 function* saga() {

@@ -26,14 +26,14 @@ const Loader = styled.div`
   margin: ${({ theme }) => theme.whitespace.base};
 `
 
-const App = ({ productsList, edit, remove }) => (
+const App = ({ productsList, addNew, edit, remove }) => (
   <div>
     <Toast />
     <EditProduct />
     <Header>
       <Row justify="space-between" align="center">
         Products
-        <Button>Add new</Button>
+        <Button onClick={addNew}>Add new</Button>
       </Row>
     </Header>
 
@@ -41,7 +41,12 @@ const App = ({ productsList, edit, remove }) => (
     {!!productsList.length && (
       <Wrapper>
         {productsList.map(item => (
-          <Card key={item.id} item={item} remove={() => remove(item.id)} edit={() => edit(item.id)} />
+          <Card
+            key={item.id}
+            item={item}
+            remove={() => remove(item.id)}
+            edit={() => edit(item.id)}
+          />
         ))}
       </Wrapper>
     )}
@@ -49,12 +54,17 @@ const App = ({ productsList, edit, remove }) => (
 )
 
 App.propTypes = {
-  productsList: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    colorIds: PropTypes.arrayOf(PropTypes.number).isRequired,
-  })).isRequired,
+  productsList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      colorIds: PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      ).isRequired,
+    }),
+  ).isRequired,
+  addNew: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
 }
@@ -65,6 +75,9 @@ export default connect(
     return { productsList }
   },
   dispatch => ({
+    addNew() {
+      dispatch(openProductSidebar())
+    },
     edit(id) {
       dispatch(openProductSidebar(id))
     },

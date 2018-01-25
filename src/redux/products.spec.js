@@ -10,7 +10,9 @@ import {
   selectProducts,
   selectProductById,
   removeProduct,
+  saveProduct,
 } from './products'
+import { actionTypes as uiActionTypes } from './ui'
 import productsApi from './api/products'
 
 describe('products', () => {
@@ -97,6 +99,42 @@ describe('products', () => {
         expect(gen.next().value).toEqual(
           put({
             type: actionTypes.PRODUCT_REMOVAL_SUCCESSFUL,
+            productId: 1,
+          }),
+        )
+      })
+
+      it("shouldn't do anything else", () => {
+        expect(gen.next().done).toBeTruthy()
+      })
+    })
+
+    describe('when product is saved', () => {
+      const saveProductAction = saveProduct(1, {})
+      const gen = requestProductSave(saveProductAction)
+
+      it('should dispatch a CLOSE_PRODUCT_SIDEBAR action', () => {
+        expect(gen.next().value).toEqual(
+          put({
+            type: uiActionTypes.CLOSE_PRODUCT_SIDEBAR,
+          }),
+        )
+      })
+
+      it('should dispatch an UPDATE_PRODUCT action', () => {
+        expect(gen.next().value).toEqual(
+          put({
+            type: actionTypes.UPDATE_PRODUCT,
+            id: 1,
+            payload: {},
+          }),
+        )
+      })
+
+      it('should dispatch PRODUCT_SAVE_SUCCESSFUL action', () => {
+        expect(gen.next().value).toEqual(
+          put({
+            type: actionTypes.PRODUCT_SAVE_SUCCESSFUL,
             productId: 1,
           }),
         )

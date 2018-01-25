@@ -73,7 +73,9 @@ Card.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
-    colorIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+    colorIds: PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    ).isRequired,
   }).isRequired,
   edit: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
