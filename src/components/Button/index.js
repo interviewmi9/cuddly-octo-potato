@@ -4,11 +4,11 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
   align-items: center;
-  background-color: ${props => props.theme.button.backgroundColor};
+  background-color: ${({ theme, type }) => theme.button(type).backgroundColor};
   border-radius: ${props => props.theme.borders.radius};
-  border: ${props => props.theme.button.border};
-  color: ${props => props.theme.button.color};
-  cursor: pointer;
+  color: ${({ theme, type }) => theme.button(type).color};
+  border: ${({ theme, type }) => theme.button(type).border};
+  cursor: ${props => (props.type === 'disabled' ? 'not-allowed' : 'pointer')};
   display: inline-flex;
   flex-direction: row;
   font-size: ${props => props.theme.fontSizes.body};
@@ -26,11 +26,13 @@ const Button = ({ children, ...props }) => (
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
+  type: PropTypes.string,
   onClick: PropTypes.func,
 }
 
 Button.defaultProps = {
   onClick: () => {},
+  type: 'primary',
 }
 
 export default Button

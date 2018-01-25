@@ -19,7 +19,7 @@ const RightColumn = styled.span`
 
 const Wrapper = styled.div`
   display: inline-block;
-  margin-bottom: ${({ theme }) => theme.whitespace.xs};
+  margin-bottom: ${({ theme }) => theme.whitespace.base};
   margin-right: ${({ theme }) => theme.whitespace.xs};
 `
 

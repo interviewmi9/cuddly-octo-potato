@@ -1,20 +1,20 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import SideBar from './'
+import Sidebar from './'
 
 describe('Sidebar component', () => {
   it('fires onBeforeClose and onAfterClose events', () => {
     const onBeforeClose = jest.fn()
     const onAfterClose = jest.fn()
 
-    const sideBar = shallow(<SideBar
+    const sidebar = shallow(<Sidebar
       isOpen
       onBeforeClose={onBeforeClose}
       onAfterClose={onAfterClose}
       content={() => <div>content</div>}
     />)
 
-    sideBar.setProps({
+    sidebar.setProps({
       isOpen: false,
       onBeforeClose,
       onAfterClose,

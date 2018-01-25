@@ -21,12 +21,12 @@ const Wrapper = styled.div`
 const Bar = styled.div`
   width: 8px;
 `
-
 const Content = styled.div`
-  cursor: pointer;
   padding: 20px;
 `
-
+const Clickable = styled.div`
+  cursor: pointer;
+`
 const Text = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
@@ -45,7 +45,7 @@ const SmallButton = styled(Button)`
 
 const confirmationButton = <SmallButton>Really delete?</SmallButton>
 
-const Card = ({ item, remove }) => {
+const Card = ({ item, edit, remove }) => {
   return (
     <Spacer>
       <Wrapper title={item.title}>
@@ -53,10 +53,12 @@ const Card = ({ item, remove }) => {
           <ColorBar colorIds={item.colorIds} />
         </Bar>
         <Content>
-          <Subheader>
-            {item.title} {item.id}
-          </Subheader>
-          <Text>{item.description}</Text>
+          <Clickable onClick={edit}>
+            <Subheader>
+              {item.title} {item.id}
+            </Subheader>
+            <Text>{item.description}</Text>
+          </Clickable>
           <Confirm by={confirmationButton}>
             <SmallButton onClick={remove}>Delete</SmallButton>
           </Confirm>
@@ -73,6 +75,7 @@ Card.propTypes = {
     description: PropTypes.string,
     colorIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   }).isRequired,
+  edit: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
 }
 

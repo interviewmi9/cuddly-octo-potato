@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { selectProducts, removeProduct } from './redux/products'
+import { openProductSidebar } from './redux/ui'
 import Card from './components/Card'
 import Button from './components/Button'
 import Row from './components/Row'
 import Toast from './components/Toast'
+import EditProduct from './components/EditProduct'
 
 const Header = styled.div`
   background: #000;
@@ -24,9 +26,10 @@ const Loader = styled.div`
   margin: ${({ theme }) => theme.whitespace.base};
 `
 
-const App = ({ productsList, remove }) => (
+const App = ({ productsList, edit, remove }) => (
   <div>
     <Toast />
+    <EditProduct />
     <Header>
       <Row justify="space-between" align="center">
         Products
@@ -38,7 +41,7 @@ const App = ({ productsList, remove }) => (
     {!!productsList.length && (
       <Wrapper>
         {productsList.map(item => (
-          <Card key={item.id} item={item} remove={() => remove(item.id)} />
+          <Card key={item.id} item={item} remove={() => remove(item.id)} edit={() => edit(item.id)} />
         ))}
       </Wrapper>
     )}
@@ -52,6 +55,7 @@ App.propTypes = {
     description: PropTypes.string,
     colorIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   })).isRequired,
+  edit: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
 }
 
@@ -61,6 +65,9 @@ export default connect(
     return { productsList }
   },
   dispatch => ({
+    edit(id) {
+      dispatch(openProductSidebar(id))
+    },
     remove(id) {
       dispatch(removeProduct(id))
     },

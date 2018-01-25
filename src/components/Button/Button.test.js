@@ -3,16 +3,14 @@ import { shallow } from 'enzyme'
 import Button from './'
 
 describe('button component', () => {
-  it('renders correctly', () => {
+  it('renders correctly by default', () => {
     const rendered = render(<Button onClick={() => {}}>Test</Button>)
     expect(rendered).toMatchSnapshot()
   })
 
-  it('renders a text message', () => {
-    const text = 'Test'
-
-    const button = shallow(<Button onClick={() => {}}>{text}</Button>)
-    expect(button.contains(text)).toBeTruthy()
+  it('renders disabled state correctly', () => {
+    const rendered = render(<Button type="disabled" onClick={() => {}}>Test</Button>)
+    expect(rendered).toMatchSnapshot()
   })
 
   it('calls an action when clicked', () => {

@@ -7,6 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 import createSagaMiddleware from 'redux-saga'
 import { saga as productsSaga, reducer as products } from './products'
 import { saga as toastSaga, reducer as toast } from './toast'
+import { reducer as ui } from './ui'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -24,6 +25,7 @@ function createBasicStore(
     combineReducers({
       products,
       toast,
+      ui,
       ...extraReducers,
     }),
     initialState,

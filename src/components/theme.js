@@ -47,15 +47,27 @@ const transition = {
 const boxShadows = {
   main: '-1px -1px 4px 0 rgba(192, 206, 225, 0.3)',
 }
-const button = {
-  backgroundColor: '#1b7eac',
-  color: colors.foreground,
-  hover: '#27a3dd',
-  active: '#5cbae5',
-  border: 'solid 1px #156489',
+const buttons = {
+  primary: {
+    backgroundColor: '#1b7eac',
+    color: colors.foreground,
+    hover: '#27a3dd',
+    active: '#5cbae5',
+    border: 'solid 1px #156489',
+  },
+  disabled: {
+    backgroundColor: '#eff2f7',
+    color: '#858ea3',
+    hover: '#27a3dd',
+    active: '#5cbae5',
+    border: 'solid 1px #cfd2da',
+  },
 }
 const sidebar = {
   default: '45%',
+}
+const button = btnType => {
+  return buttons[btnType]
 }
 export default {
   borders,
